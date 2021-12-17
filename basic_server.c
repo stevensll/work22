@@ -40,6 +40,7 @@ int main() {
         printf("Client is disconnected, waiting for a connection.\n");
     } else {
         //SERVER
+        remove(WKP);
     }
    
     
