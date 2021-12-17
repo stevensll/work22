@@ -4,6 +4,7 @@ static void sighandler(int sig) {
 
     if (sig == SIGINT) {
         printf("Exiting server...\n");
+        remove(WKP)
         exit(0);
     }
 
