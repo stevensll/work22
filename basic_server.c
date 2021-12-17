@@ -21,8 +21,8 @@ int main() {
     if(!f){
         //SUBSERVER
         to_client = server_connect(from_client);
-        char *response = malloc(BUFFER_SIZE);
         while(1){
+            char *response = malloc(BUFFER_SIZE);
             int fd = read(from_client, response, BUFFER_SIZE);
             //no response
             if (fd == 0) break;
@@ -40,10 +40,10 @@ int main() {
         printf("Client is disconnected, waiting for a connection.\n");
     } else {
         //SERVER
+        close(from_client);
         remove(WKP);
+        printf("[server] handshake: removed wkp\n");
     }
-   
-    
   }
   return 0;
 }

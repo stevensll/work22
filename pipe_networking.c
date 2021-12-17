@@ -18,7 +18,6 @@ int server_setup() {
         printf("Error creating WKP: %s\n", strerror(errno));
     }
     int from_client = open(WKP, O_RDONLY, 0);
-    remove(WKP);
     return from_client;
 }
 
@@ -34,25 +33,23 @@ int server_connect(int from_client) {
     int to_client  = 0;
     char buff[HANDSHAKE_BUFFER_SIZE];
     int f = read(from_client, buff, sizeof(buff));
-    printf("[server] handshake received -%s\n", buff);
+    printf("[subserver] handshake received -%s\n", buff);
     
     to_client = open(buff, O_WRONLY, 0);
     //SYN_ACK
     srand(time(NULL));
     int r = rand() % HANDSHAKE_BUFFER_SIZE;
     sprintf(buff, "%d", r);
-
     write(to_client, buff, sizeof(buff));
     
     //check ACK
     read(from_client, buff, sizeof(buff));
     int ra = atoi(buff);
     if (ra != r+1) {
-        printf("[server] handshake received bad ACK: -%s-\n", buff);
+        printf("[subserver] handshake received bad ACK: -%s-\n", buff);
         exit(0);
     }//bad response
-    printf("[server] handshake received: -%s-\n", buff);
-    
+    printf("[subserver] handshake received: -%s-\n", buff);
     return to_client;
 }
 
