@@ -13,7 +13,7 @@
   returns the file descriptor for the upstream pipe.
   =========================*/
 int server_setup() {
-    int p = mkfifo(WKP, 0600);
+    int p = mkfifo(WKP, 0644);
     if(p ==-1){
         printf("Error creating WKP: %s\n", strerror(errno));
     }
